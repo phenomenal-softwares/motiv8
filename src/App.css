@@ -1,38 +1,211 @@
+/* Global Styling */
+:root {
+  --primary-color: #4caf50;
+  --secondary-color: #ff5722;
+  --background-color: #f9f9f9;
+  --text-color: #333;
+  --accent-color: #2196f3;
+  --font-family: 'Poppins', sans-serif;
+  --spacing: 16px;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, #e3f2fd, #f9fbe7);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
 .App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing);
   text-align: center;
+  animation: fadeIn 1s ease-in-out;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navigation */
+nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-bottom: var(--spacing);
+  background-color: var(--primary-color);
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+nav a {
+  text-decoration: none;
+  margin: 0 var(--spacing);
   color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+  position: relative;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--secondary-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s;
 }
 
-@keyframes App-logo-spin {
+nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  margin: 0 var(--spacing);
+}
+
+/* Quote Box */
+.quote-box {
+  background-color: white;
+  padding: var(--spacing);
+  margin: var(--spacing) 0;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.quote-box p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin: var(--spacing) 0;
+}
+
+.quote-box button {
+  margin: var(--spacing) 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quote-box button:hover {
+  background-color: var(--secondary-color);
+  animation: pulse 0.4s ease-in-out;
+}
+
+/* Favorites Section */
+.favorites {
+  margin-top: var(--spacing);
+  text-align: left;
+  animation: slideIn 0.8s ease-in-out;
+}
+
+.favorites-list {
+  list-style: none;
+  padding: 0;
+}
+
+.favorites-list li {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.delete-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.delete-button:hover {
+  background-color: var(--accent-color);
+  animation: pulse 0.4s ease-in-out;
+}
+
+/* Share Buttons */
+.share-buttons {
+  margin-top: var(--spacing);
+}
+
+.share-buttons a {
+  margin: 0 10px;
+  color: var(--accent-color);
+  transition: transform 0.3s, color 0.3s;
+}
+
+.share-buttons a:hover {
+  transform: scale(1.1);
+  color: var(--secondary-color);
+}
+
+/* Animations */
+
+/* Fade-in Effect */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Pulse Effect */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Slide-in Effect for Favorites */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quote-box p {
+    font-size: 1rem;
+  }
+
+  nav a {
+    margin: 0 8px;
+    font-size: 0.9rem;
+  }
+
+  .favorites li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .favorites button {
+    margin-top: var(--spacing);
+  }
+
+  .favorites-list li {
+    animation: slideIn 0.8s ease-in-out;
   }
 }
