@@ -66,13 +66,23 @@ nav a:hover::after {
   transform-origin: left;
 }
 
+/* Style for the dropdown menu */
 select {
   padding: 0.5rem;
   font-size: 1rem;
   border: none;
   border-radius: var(--border-radius);
   margin: 0 var(--spacing);
+  max-height: 100px; /* Limit the height */
+  overflow-y: auto; /* Enable scrolling */
 }
+
+select option {
+  padding: 0.5rem;
+  font-size: 1rem;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
 
 /* Quote Box */
 .quote-box {
@@ -207,5 +217,8 @@ select {
 
   .favorites-list li {
     animation: slideIn 0.8s ease-in-out;
+  }
+  .select {
+    max-height: 200px;
   }
 }
