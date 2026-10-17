@@ -37,18 +37,10 @@ function App() {
 
   const fetchQuote = async (selectedCategory = '') => {
   try {
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': 'c44618e22dmsh4db4a1fc50c2dbap145d34jsnb7d41e53f133',
-        'X-RapidAPI-Host': 'famous-quotes4.p.rapidapi.com',
-      },
-    };
-
-    const url = selectedCategory
-      ? `https://famous-quotes4.p.rapidapi.com/random?category=${selectedCategory}`
-      : 'https://famous-quotes4.p.rapidapi.com/random';
-    const response = await fetch(url, options);
+    const query = selectedCategory
+      ? `?category=${encodeURIComponent(selectedCategory)}`
+      : '';
+    const response = await fetch(`/api/quote${query}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

@@ -80,14 +80,17 @@ npm install
 ### Run the app locally
 
 ```bash
-npm start
+npx vercel dev
 ```
 
-The application will open in your browser at:
+Link the project to Vercel and pull its Development environment variables before running the command:
 
-```text
-http://localhost:3000
+```bash
+npx vercel link
+npx vercel env pull .env.local
 ```
+
+The local app URL is printed by the Vercel CLI. `npm start` starts only the React development server and does not run the `/api/quote` serverless function.
 
 ### Production build
 
@@ -105,18 +108,16 @@ npm test
 
 ## API Configuration
 
-The app currently fetches quotes from RapidAPI using the `famous-quotes4` endpoint in `src/App.js`.
+The browser requests quotes from the Vercel serverless function at `/api/quote`. The function reads the RapidAPI credentials on the server and forwards the request to `famous-quotes4`, so the credentials are not included in the React bundle.
 
-If the API key expires or the service requires a different configuration, update the following values in `App.js`:
+In the Vercel project settings, add these environment variables for each deployment environment you use:
 
-```js
-headers: {
-  'X-RapidAPI-Key': 'YOUR_API_KEY',
-  'X-RapidAPI-Host': 'famous-quotes4.p.rapidapi.com',
-}
+```dotenv
+X_RAPIDAPI_KEY=your_rapidapi_key
+X_RAPIDAPI_HOST=famous-quotes4.p.rapidapi.com
 ```
 
-Important: use your own valid RapidAPI credentials to avoid disruption.
+For local development, link the project and run `npx vercel env pull .env.local` to retrieve the Development variables. Restart `vercel dev` after changing environment variables. Keep `.env.local` out of version control and do not add the `REACT_APP_` prefix: the credentials are used by the serverless function, not by the browser.
 
 ## User Experience
 
@@ -129,7 +130,7 @@ The application is intentionally simple and focused:
 ## Notes
 
 - Favorites are stored on the client side using the browser's `localStorage`.
-- There is currently no backend or database layer.
+- Quote requests are proxied through a Vercel serverless function; the app does not currently have a database or user account system.
 - The app is built as a front-end demonstration and can be extended with authentication, cloud storage, or a custom quote database.
 
 ## License
